@@ -1,0 +1,37 @@
+export const INIT_PRODS = [
+  {id:1,catId:"c1",name:"Cordillera",emoji:"🍔",price:34000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Carne, queso, maduritos, pepinillos, lechuga, topping de chuleta ahumada y salsas.",variants:[]},
+  {id:2,catId:"c1",name:"Ranchera",emoji:"🍔",price:30000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Carne, salchicha tipo ranchera, maíz, maduro, vegetales y salsas. ⭐ La más pedida",variants:[]},
+  {id:3,catId:"c1",name:"Plus",emoji:"🍔",price:30000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Carne, queso, topping de chorizo artesanal, ripio, maduro, huevos de codorniz, vegetales y salsas.",variants:[]},
+  {id:4,catId:"c1",name:"Triplete",emoji:"🍔",price:29000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Tres carnes (res, pollo y chorizo), queso, tocineta, ripio, vegetales y salsas.",variants:[]},
+  {id:5,catId:"c1",name:"Caracas",emoji:"🍔",price:26000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Carne, chorizo, queso, tocineta, huevo de gallina, aguacate, vegetales y salsas.",variants:[]},
+  {id:6,catId:"c1",name:"Papuda",emoji:"🍔",price:20000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Carne, tocineta, papas, plátano, vegetales y salsas.",variants:[]},
+  {id:7,catId:"c2",name:"Burger Clásica Super",emoji:"🍔",price:19000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Incluye carne artesanal, queso, tocineta, huevos de codorniz, ripio, vegetales y salsas.",variants:[{id:"v7m",name:"Mediana",price:19000,cost:0,stock:99},{id:"v7g",name:"Grande",price:24000,cost:0,stock:99}]},
+  {id:8,catId:"c2",name:"Burger Clásica Normal 1 Carne",emoji:"🍔",price:14000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Incluye carne artesanal, queso, tocineta, ripio, vegetales y salsas.",variants:[{id:"v8p",name:"Pequeña",price:14000,cost:0,stock:99},{id:"v8m",name:"Mediana",price:17000,cost:0,stock:99},{id:"v8g",name:"Grande",price:22000,cost:0,stock:99}]},
+  {id:9,catId:"c2",name:"Burger Clásica Normal 2 Carnes",emoji:"🍔",price:18000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Incluye 2 carnes artesanales, queso, tocineta, ripio, vegetales y salsas.",variants:[{id:"v9p",name:"Pequeña",price:18000,cost:0,stock:99},{id:"v9m",name:"Mediana",price:22000,cost:0,stock:99},{id:"v9g",name:"Grande",price:30000,cost:0,stock:99}]},
+  {id:10,catId:"c3",name:"Pepito Plus",emoji:"🥖",price:36000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Pepito ultra cargado con carnes jugosas, tocineta crocante, queso fundido, ripio crujiente, vegetales frescos y salsas de la casa. ⭐ Favorito de la casa",variants:[]},
+  {id:11,catId:"c3",name:"Pepito Mix",emoji:"🥖",price:29000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Tres carnes (res, cerdo y pollo) queso, papas, huevo, vegetales y salsas.",variants:[]},
+  {id:12,catId:"c3",name:"Pepito Urbano",emoji:"🥖",price:30000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Tres carnes (res, cerdo y pollo), queso, ripio, aguacate, vegetales y salsas.",variants:[]},
+  {id:13,catId:"c3",name:"Pepito Ranchero",emoji:"🥖",price:34000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Tres carnes (res, cerdo y pollo) con salchicha, queso, ripio, maíz, vegetales y salsas.",variants:[]},
+  {id:14,catId:"c4",name:"Salchi Super",emoji:"🍟",price:19000,cost:0,stock:99,minStock:5,active:true,note:"Papas, salchicha, chorizo, queso, huevos codorniz, maduro, maíz y salsas.",variants:[{id:"v14p",name:"Pequeña",price:19000,cost:0,stock:99},{id:"v14g",name:"Grande",price:34000,cost:0,stock:99}]},
+  {id:15,catId:"c4",name:"Salchi Normal",emoji:"🍟",price:14000,cost:0,stock:99,minStock:5,active:true,note:"Papas, salchicha, queso y salsas.",variants:[{id:"v15p",name:"Pequeña",price:14000,cost:0,stock:99},{id:"v15g",name:"Grande",price:21000,cost:0,stock:99}]},
+  {id:16,catId:"c5",name:"Perro Super",emoji:"🌭",price:16000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Salchicha americana, queso, huevos codorniz, ripio y salsas.",variants:[]},
+  {id:17,catId:"c5",name:"Perro Especial",emoji:"🌭",price:15000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Salchicha americana, queso, ripio, papas y salsas.",variants:[]},
+  {id:18,catId:"c5",name:"Perro Normal",emoji:"🌭",price:12000,cost:0,stock:99,minStock:5,active:true,comboPrice:7000,note:"Salchicha americana, queso, ripio, salsas.",variants:[]},
+  {id:19,catId:"c6",name:"Tequeños",emoji:"🧀",price:11000,cost:0,stock:99,minStock:5,active:true,note:"5 tequeños rellenos de queso.",variants:[]},
+  {id:20,catId:"c6",name:"Empanadas",emoji:"🥟",price:9000,cost:0,stock:99,minStock:5,active:true,note:"5 empanaditas sabores varios.",variants:[]},
+  {id:21,catId:"c6",name:"Papas Fritas",emoji:"🍟",price:7000,cost:0,stock:99,minStock:5,active:true,note:"Papas fritas y salsas aparte.",variants:[{id:"v21p",name:"Pequeña",price:7000,cost:0,stock:99},{id:"v21m",name:"Mediana",price:11000,cost:0,stock:99},{id:"v21g",name:"Grande",price:16000,cost:0,stock:99}]},
+];
+
+export const INIT_CATS = [
+  { id: "c1", name: "Burger Premium", emoji: "🍔", color: "#F97316" },
+  { id: "c2", name: "Burger Clásica", emoji: "🍔", color: "#EF4444" },
+  { id: "c3", name: "Pepitos Venezolanos", emoji: "🥖", color: "#F59E0B" },
+  { id: "c4", name: "Salchipapas", emoji: "🍟", color: "#10B981" },
+  { id: "c5", name: "Perros Calientes", emoji: "🌭", color: "#3B82F6" },
+  { id: "c6", name: "Entradas Pa Picar", emoji: "🧆", color: "#8B5CF6" },
+  { id: "c7", name: "Combos con Papas", emoji: "🎁", color: "#EC4899" },
+  { id: "c8", name: "Combos Familiares", emoji: "👨‍👩‍👧", color: "#06B6D4" },
+  { id: "c9", name: "Combos Express", emoji: "⚡", color: "#84CC16" },
+  { id: "c10", name: "Bebidas", emoji: "🥤", color: "#6366F1" },
+  { id: "c11", name: "Adicionales", emoji: "➕", color: "#14B8A6" }
+];

@@ -1,0 +1,51 @@
+/* Scrollbar premium forzada para custom-scroll */
+.custom-scroll::-webkit-scrollbar {
+  height: 6px !important;
+  background: transparent !important;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: #0F0F13 !important;
+  border-radius: 10px !important;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #333333 !important;
+  border-radius: 10px !important;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #444444 !important;
+}
+/* Scrollbar premium para el contenedor de categorías */
+.contenedor-categorias::-webkit-scrollbar {
+  height: 8px !important;
+  background: #18181f !important;
+  border-radius: 10px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.contenedor-categorias::-webkit-scrollbar-thumb {
+  background: #23232b !important;
+  border-radius: 10px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.contenedor-categorias {
+  scrollbar-width: thin !important;
+  scrollbar-color: #23232b #18181f !important;
+}
+/* Scrollbar premium Nodus Estudio */
+.scroll-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #2d2d3a #1c1c24;
+}
+.scroll-custom::-webkit-scrollbar {
+  height: 0.5rem;
+  background: #1c1c24;
+  border-radius: 9999px;
+}
+.scroll-custom::-webkit-scrollbar-thumb {
+  background: #2d2d3a;
+  border-radius: 9999px;
+}
+.scroll-custom:hover::-webkit-scrollbar-thumb {
+  background: #444;
+}
