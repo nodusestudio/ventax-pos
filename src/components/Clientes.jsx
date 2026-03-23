@@ -135,15 +135,16 @@ const Clientes = ({ clientes, setClientes }) => {
 
   return (
     <div className="fixed inset-0 flex w-full h-screen overflow-hidden bg-[#0F0F13] text-white font-sans">
-      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13]"></div>
+      {/* Barra lateral solo escritorio */}
+      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13] hidden sm:block"></div>
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* Header Compacto con Margen Superior */}
-        <div className="pt-6 px-6 pb-4 flex justify-between items-center bg-[#0F0F13]">
-          <div>
-            <h2 className="text-xl font-black tracking-tight text-white uppercase">Gestión de Clientes</h2>
-            <p className="text-gray-500 text-[11px] mt-0.5">Administra tus clientes y contactos</p>
+        <div className="pt-4 px-3 pb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center bg-[#0F0F13] gap-2">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase leading-tight">Gestión de Clientes</h2>
+            <p className="text-gray-500 text-[10px] sm:text-[11px] mt-0.5">Administra tus clientes y contactos</p>
           </div>
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 mt-2 sm:mt-0">
             <Search className="absolute left-3.5 top-2.5 text-gray-600" size={16} />
             <input
               type="text"
@@ -156,25 +157,25 @@ const Clientes = ({ clientes, setClientes }) => {
         </div>
 
         {/* Botones de acción */}
-        <div className="flex items-center gap-2 px-6 py-2">
-          <button className="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-green-600 text-white shadow-lg hover:bg-green-700" onClick={handleAgregar}>
+        <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-6 py-1.5 sm:py-2">
+          <button className="px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-green-600 text-white shadow-lg hover:bg-green-700" onClick={handleAgregar}>
             Agregar Cliente
           </button>
-          <button className="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-blue-600 text-white shadow-lg hover:bg-blue-700" onClick={handleExportar}>
+          <button className="px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-blue-600 text-white shadow-lg hover:bg-blue-700" onClick={handleExportar}>
             Exportar
           </button>
-          <label className="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-orange-500 text-white shadow-lg hover:bg-orange-600 cursor-pointer">
+          <label className="px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-orange-500 text-white shadow-lg hover:bg-orange-600 cursor-pointer">
             Importar
             <input type="file" accept=".json,.csv" className="hidden" onChange={handleImportar} />
           </label>
         </div>
 
         {/* Tabla de clientes */}
-        <div className="flex-1 overflow-y-auto custom-scroll px-6 py-4 bg-[#0F0F13]">
+        <div className="flex-1 overflow-y-auto custom-scroll px-2 sm:px-6 py-2 sm:py-4 bg-[#0F0F13]">
           <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left border-separate border-spacing-y-2">
+            <table className="min-w-full text-xs sm:text-sm text-left border-separate border-spacing-y-1 sm:border-spacing-y-2">
               <thead>
-                <tr className="text-gray-400 uppercase text-xs">
+                <tr className="text-gray-400 uppercase text-[10px] sm:text-xs">
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Nombre</th>
                   <th className="px-4 py-2">Teléfono</th>
@@ -187,7 +188,7 @@ const Clientes = ({ clientes, setClientes }) => {
                 {clientesFiltrados.map((c) => {
                   const isEditing = editando === c.id;
                   return (
-                    <tr key={c.id} className="bg-[#18181F] hover:bg-[#23232c] rounded-xl shadow border-b border-[#22222C]">
+                    <tr key={c.id} className="bg-[#18181F] hover:bg-[#23232c] rounded-lg sm:rounded-xl shadow border-b border-[#22222C]">
                       <td className="px-4 py-2 font-mono text-xs text-gray-400">{c.id}</td>
                       <td className="px-4 py-2 font-bold text-white">
                         {isEditing ? (
@@ -234,7 +235,7 @@ const Clientes = ({ clientes, setClientes }) => {
                   );
                 })}
                 {/* Formulario para agregar cliente */}
-                <tr className="bg-[#23232c] border-b border-[#22222C]">
+                <tr className="bg-[#23232c] border-b border-[#22222C] text-xs">
                   <td className="px-4 py-2 font-mono text-xs text-gray-400">Nuevo</td>
                   <td className="px-4 py-2">
                     <input className="bg-[#18181F] rounded px-2 py-1 w-32" value={nuevoCliente.name} onChange={e => setNuevoCliente({ ...nuevoCliente, name: e.target.value })} placeholder="Nombre" />
@@ -252,11 +253,13 @@ const Clientes = ({ clientes, setClientes }) => {
                     <button className="px-2 py-1 rounded bg-green-600 text-white text-xs font-bold hover:bg-green-700" onClick={handleAgregar}>Agregar</button>
                   </td>
                 </tr>
+                {clientesFiltrados.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="text-center text-gray-500 py-10">No hay clientes para mostrar.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
-            {clientesFiltrados.length === 0 && (
-              <div className="text-center text-gray-500 py-10">No hay clientes para mostrar.</div>
-            )}
           </div>
         </div>
       </div>

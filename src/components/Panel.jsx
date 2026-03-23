@@ -50,15 +50,16 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
   };
   return (
     <div className="fixed inset-0 flex w-full h-screen overflow-hidden bg-[#0F0F13] text-white font-sans">
-      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13]"></div>
+      {/* Barra lateral solo escritorio */}
+      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13] hidden sm:block"></div>
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* Header Compacto con Margen Superior */}
-        <div className="pt-6 px-6 pb-4 flex justify-between items-center bg-[#0F0F13]">
-          <div>
-            <h2 className="text-xl font-black tracking-tight text-white uppercase">Panel Principal</h2>
-            <p className="text-gray-500 text-[11px] mt-0.5">Resumen y accesos rápidos del POS</p>
+        <div className="pt-4 px-3 pb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center bg-[#0F0F13] gap-2">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase leading-tight">Panel Principal</h2>
+            <p className="text-gray-500 text-[10px] sm:text-[11px] mt-0.5">Resumen y accesos rápidos del POS</p>
           </div>
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 mt-2 sm:mt-0">
             <svg className="absolute left-3.5 top-2.5 text-gray-600" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="7" cy="7" r="6"/><line x1="11" y1="11" x2="15" y2="15"/></svg>
             <input
               type="text"
@@ -68,7 +69,7 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
           </div>
         </div>
         {/* Botones de acceso rápido igual a Tickets */}
-        <div className="flex items-center gap-2 overflow-x-auto px-6 py-2 custom-scroll whitespace-nowrap">
+        <div className="flex items-center gap-2 overflow-x-auto px-3 sm:px-6 py-2 custom-scroll whitespace-nowrap">
           <button onClick={() => setActivePanel('TODOS')} className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg ${activePanel === 'TODOS' ? 'bg-orange-500 text-white shadow-orange-500/30' : 'bg-[#23232b] text-gray-300 hover:bg-orange-500/20'}`}>TODOS</button>
           <button onClick={() => setActivePanel('MESAS')} className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg ${activePanel === 'MESAS' ? 'bg-green-500 text-white shadow-green-500/30' : 'bg-[#23232b] text-gray-300 hover:bg-green-500/20'}`}>MESAS</button>
           <button onClick={() => setActivePanel('LLEVAR')} className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg ${activePanel === 'LLEVAR' ? 'bg-blue-500 text-white shadow-blue-500/30' : 'bg-[#23232b] text-gray-300 hover:bg-blue-500/20'}`}>LLEVAR</button>
@@ -76,7 +77,7 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
         </div>
         {/* Panel dinámico */}
         {activePanel === 'MESAS' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8 px-6 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 px-2 sm:px-6 mt-4 sm:mt-6">
             {[1,2,3,4,5,6,7].map(num => {
               const ticket = mesasOcupadasMap[num.toString()];
               const ocupada = !!ticket;
@@ -117,7 +118,7 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
             })}
           </div>
         ) : activePanel === 'LLEVAR' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8 px-6 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 px-2 sm:px-6 mt-4 sm:mt-6">
             {/* Tarjeta para iniciar nuevo pedido */}
             <div className="min-w-0 w-full bg-[#23232b] rounded-xl p-6 flex flex-col items-center border border-blue-500 shadow-lg">
               <span className="font-black text-blue-400 text-xl mb-2">Nuevo pedido para llevar</span>
@@ -164,7 +165,7 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
             ))}
           </div>
         ) : activePanel === 'DOMICILIOS' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8 px-6 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 px-2 sm:px-6 mt-4 sm:mt-6">
             {/* Tarjeta para iniciar nuevo pedido */}
             <div className="min-w-0 w-full bg-[#23232b] rounded-xl p-6 flex flex-col items-center border border-purple-500 shadow-lg">
               <span className="font-black text-purple-400 text-xl mb-2">Nuevo pedido a domicilio</span>
@@ -211,7 +212,7 @@ export default function Panel({ setActiveTab, setTableNum, tickets = [], setEdit
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 px-6 mt-6 overflow-y-auto custom-scroll" style={{maxHeight:'calc(100vh - 170px)'}}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 px-2 sm:px-6 mt-4 sm:mt-6 overflow-y-auto custom-scroll" style={{maxHeight:'calc(100vh - 170px)'}}>
             {/* MESAS */}
             <div>
               <h3 className="text-lg font-bold text-green-400 mb-2 text-center">MESAS</h3>

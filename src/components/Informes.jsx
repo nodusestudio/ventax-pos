@@ -86,16 +86,16 @@ const Informes = () => {
 
   return (
     <div className="fixed inset-0 flex w-full h-screen overflow-hidden bg-[#0F0F13] text-white font-sans">
-      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13]" />
+      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13] hidden sm:block" />
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* Header y tabs sticky */}
         <div className="sticky top-0 z-20 bg-[#0F0F13]">
-          <div className="pt-6 px-6 pb-4 flex justify-between items-center">
-            <div>
-              <h2 className="text-xl font-black tracking-tight text-white uppercase">Informes y Reportes</h2>
-              <p className="text-gray-500 text-[11px] mt-0.5">Visualiza y exporta tus datos de ventas</p>
+          <div className="pt-4 px-3 pb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <div className="flex flex-col gap-0.5">
+              <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase leading-tight">Informes y Reportes</h2>
+              <p className="text-gray-500 text-[10px] sm:text-[11px] mt-0.5">Visualiza y exporta tus datos de ventas</p>
             </div>
-            <div className="relative w-72">
+            <div className="relative w-full sm:w-72 mt-2 sm:mt-0">
               <Search className="absolute left-3.5 top-2.5 text-gray-600" size={16} />
               <input
                 type="text"
@@ -106,12 +106,12 @@ const Informes = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2 px-6 py-2 border-b border-[#18181F] bg-[#0F0F13]">
+          <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-6 py-1.5 sm:py-2 border-b border-[#18181F] bg-[#0F0F13]">
             {botones.map((b) => (
               <button
                 key={b.key}
                 onClick={() => setTab(b.key)}
-                className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
+                className={`px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
                   tab === b.key
                     ? "bg-orange-500 text-white border-orange-500 shadow-lg shadow-orange-500/30"
                     : "bg-[#1c1c24] text-gray-400 border-gray-800 hover:border-gray-600 hover:bg-[#25252e]"
@@ -123,20 +123,20 @@ const Informes = () => {
           </div>
         </div>
         {/* Contenido dinámico debajo del header y tabs */}
-        <div className="flex-1 overflow-y-auto custom-scroll px-6 py-4 bg-[#0F0F13]">
+        <div className="flex-1 overflow-y-auto custom-scroll px-2 sm:px-6 py-2 sm:py-4 bg-[#0F0F13]">
           {tab === "resumen" && (
             <div>
               {/* Tarjetas resumen */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-[#18181F] rounded-xl p-4 flex flex-col items-start border border-[#22222C]">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-6">
+                <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col items-start border border-[#22222C] text-xs sm:text-sm">
                   <span className="text-xs text-gray-400">Ventas brutas</span>
                   <span className="text-2xl font-black text-green-400">${datosResumen.ventasBrutas.toLocaleString('es-CO')}</span>
                 </div>
-                <div className="bg-[#18181F] rounded-xl p-4 flex flex-col items-start border border-[#22222C]">
+                <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col items-start border border-[#22222C] text-xs sm:text-sm">
                   <span className="text-xs text-gray-400">Reembolsos</span>
                   <span className="text-2xl font-black text-red-400">${datosResumen.reembolsos.toLocaleString('es-CO')}</span>
                 </div>
-                <div className="bg-[#18181F] rounded-xl p-4 flex flex-col items-start border border-[#22222C]">
+                <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col items-start border border-[#22222C] text-xs sm:text-sm">
                   <span className="text-xs text-gray-400">Descuentos</span>
                   <span className="text-2xl font-black text-orange-400">${datosResumen.descuentos.toLocaleString('es-CO')}</span>
                 </div>
@@ -144,13 +144,13 @@ const Informes = () => {
                   <span className="text-xs text-gray-400">Ventas netas</span>
                   <span className="text-2xl font-black text-blue-400">${datosResumen.ventasNetas.toLocaleString('es-CO')}</span>
                 </div>
-                <div className="bg-[#18181F] rounded-xl p-4 flex flex-col items-start border border-[#22222C] col-span-2 md:col-span-4">
+                <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col items-start border border-[#22222C] col-span-2 md:col-span-4 text-xs sm:text-sm">
                   <span className="text-xs text-gray-400">Beneficio bruto</span>
                   <span className="text-2xl font-black text-pink-400">${datosResumen.beneficioBruto.toLocaleString('es-CO')}</span>
                 </div>
               </div>
               {/* Gráfico de líneas (simulado) */}
-              <div className="bg-[#18181F] rounded-xl p-6 mb-6 border border-[#22222C]">
+              <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-3 sm:p-6 mb-6 border border-[#22222C] text-xs sm:text-sm">
                 <span className="text-xs text-gray-400">Ventas brutas</span>
                 <div className="w-full h-48 flex items-end gap-2 mt-4">
                   {datosResumen.dias.map((d, i) => (
@@ -166,7 +166,7 @@ const Informes = () => {
                 </div>
               </div>
               {/* Tabla de exportar */}
-              <div className="bg-[#18181F] rounded-xl p-4 border border-[#22222C]">
+              <div className="bg-[#18181F] rounded-lg sm:rounded-xl p-2 sm:p-4 border border-[#22222C] text-xs sm:text-sm">
                 <span className="text-xs text-gray-400">Exportar</span>
                 <table className="min-w-full text-sm text-left mt-2">
                   <thead>

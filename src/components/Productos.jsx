@@ -131,15 +131,16 @@ const Productos = () => {
 
   return (
     <div className="fixed inset-0 flex w-full h-screen overflow-hidden bg-[#0F0F13] text-white font-sans">
-      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13]"></div>
+      {/* Barra lateral solo escritorio */}
+      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13] hidden sm:block"></div>
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* Header Compacto con Margen Superior */}
-        <div className="pt-6 px-6 pb-4 flex justify-between items-center bg-[#0F0F13]">
-          <div>
-            <h2 className="text-xl font-black tracking-tight text-white uppercase">Gestión de Productos</h2>
-            <p className="text-gray-500 text-[11px] mt-0.5">Administra tus productos y categorías</p>
+        <div className="pt-4 px-3 pb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center bg-[#0F0F13] gap-2">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase leading-tight">Gestión de Productos</h2>
+            <p className="text-gray-500 text-[10px] sm:text-[11px] mt-0.5">Administra tus productos y categorías</p>
           </div>
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 mt-2 sm:mt-0">
             <Search className="absolute left-3.5 top-2.5 text-gray-600" size={16} />
             <input
               type="text"
@@ -152,7 +153,7 @@ const Productos = () => {
         </div>
 
         {/* Botones de categorías */}
-        <div className="flex items-center gap-2 overflow-x-auto px-6 py-2 custom-scroll whitespace-nowrap">
+        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto px-2 sm:px-6 py-1.5 sm:py-2 custom-scroll whitespace-nowrap">
           <button
             key="Todos"
             onClick={() => setCategoriaSeleccionada("Todos")}
@@ -168,7 +169,7 @@ const Productos = () => {
             <span key={cat.id} className="flex items-center gap-1">
               <button
                 onClick={() => setCategoriaSeleccionada(cat.name)}
-                className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
+                className={`px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
                   categoriaSeleccionada === cat.name
                     ? "bg-orange-500 text-white border-orange-500 shadow-lg shadow-orange-500/30"
                     : "bg-[#1c1c24] text-gray-400 border-gray-800 hover:border-gray-600 hover:bg-[#25252e]"
@@ -200,11 +201,11 @@ const Productos = () => {
         </div>
 
         {/* Tabla de productos */}
-        <div className="flex-1 overflow-y-auto custom-scroll px-6 py-4 bg-[#0F0F13]">
+        <div className="flex-1 overflow-y-auto custom-scroll px-2 sm:px-6 py-2 sm:py-4 bg-[#0F0F13]">
           <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left border-separate border-spacing-y-2">
+            <table className="min-w-full text-xs sm:text-sm text-left border-separate border-spacing-y-1 sm:border-spacing-y-2">
               <thead>
-                <tr className="text-gray-400 uppercase text-xs">
+                    <tr className="text-gray-400 uppercase text-[10px] sm:text-xs">
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Nombre</th>
                   <th className="px-4 py-2">Categoría</th>
@@ -219,7 +220,7 @@ const Productos = () => {
                   const catObj = INIT_CATS.find((c) => c.id === p.catId);
                   const isEditing = editando === p.id;
                   return (
-                    <tr key={p.id} className="bg-[#18181F] hover:bg-[#23232c] rounded-xl shadow border-b border-[#22222C]">
+                    <tr key={p.id} className="bg-[#18181F] hover:bg-[#23232c] rounded-lg sm:rounded-xl shadow border-b border-[#22222C]">
                       <td className="px-4 py-2 font-mono text-xs text-gray-400">{p.id}</td>
                       <td className="px-4 py-2 font-bold text-white">
                         {isEditing ? (
@@ -274,37 +275,39 @@ const Productos = () => {
                     </tr>
                   );
                 })}
-              </tbody>
-            </table>
-            {productosFiltrados.length === 0 && (
-              <div className="text-center text-gray-500 py-10">No hay productos para mostrar.</div>
-            )}
-            {/* Formulario para agregar producto */}
-            <tr className="bg-[#23232c] border-b border-[#22222C]">
-              <td className="px-4 py-2 font-mono text-xs text-gray-400">Nuevo</td>
-              <td className="px-4 py-2">
-                <input className="bg-[#18181F] rounded px-2 py-1 w-32" value={nuevoProducto.name} onChange={e => setNuevoProducto({ ...nuevoProducto, name: e.target.value })} placeholder="Nombre" />
-              </td>
-              <td className="px-4 py-2">
-                <select className="bg-[#18181F] rounded px-2 py-1" value={nuevoProducto.catId} onChange={e => setNuevoProducto({ ...nuevoProducto, catId: e.target.value })}>
-                  {INIT_CATS.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
-                </select>
-              </td>
-              <td className="px-4 py-2">
-                <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-20" value={nuevoProducto.price} onChange={e => setNuevoProducto({ ...nuevoProducto, price: e.target.value })} placeholder="Precio" />
-              </td>
-              <td className="px-4 py-2">
-                <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-20" value={nuevoProducto.cost} onChange={e => setNuevoProducto({ ...nuevoProducto, cost: e.target.value })} placeholder="Costo" />
-              </td>
-              <td className="px-4 py-2">
-                <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-16" value={nuevoProducto.stock} onChange={e => setNuevoProducto({ ...nuevoProducto, stock: e.target.value })} placeholder="Stock" />
-              </td>
-              <td className="px-4 py-2 flex gap-2">
-                <button className="px-2 py-1 rounded bg-green-600 text-white text-xs font-bold hover:bg-green-700" onClick={handleAgregar}>Agregar</button>
-              </td>
-            </tr>
-          </div>
+              {/* Formulario para agregar producto */}
+              {productosFiltrados.length === 0 && (
+                <tr className="bg-[#23232c] border-b border-[#22222C] text-xs">
+                  <td colSpan={7} className="text-center text-gray-500 py-10">No hay productos para mostrar.</td>
+                </tr>
+              )}
+              <tr className="bg-[#23232c] border-b border-[#22222C] text-xs">
+                <td className="px-4 py-2 font-mono text-xs text-gray-400">Nuevo</td>
+                <td className="px-4 py-2">
+                  <input className="bg-[#18181F] rounded px-2 py-1 w-32" value={nuevoProducto.name} onChange={e => setNuevoProducto({ ...nuevoProducto, name: e.target.value })} placeholder="Nombre" />
+                </td>
+                <td className="px-4 py-2">
+                  <select className="bg-[#18181F] rounded px-2 py-1" value={nuevoProducto.catId} onChange={e => setNuevoProducto({ ...nuevoProducto, catId: e.target.value })}>
+                    {INIT_CATS.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+                  </select>
+                </td>
+                <td className="px-4 py-2">
+                  <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-20" value={nuevoProducto.price} onChange={e => setNuevoProducto({ ...nuevoProducto, price: e.target.value })} placeholder="Precio" />
+                </td>
+                <td className="px-4 py-2">
+                  <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-20" value={nuevoProducto.cost} onChange={e => setNuevoProducto({ ...nuevoProducto, cost: e.target.value })} placeholder="Costo" />
+                </td>
+                <td className="px-4 py-2">
+                  <input type="number" className="bg-[#18181F] rounded px-2 py-1 w-16" value={nuevoProducto.stock} onChange={e => setNuevoProducto({ ...nuevoProducto, stock: e.target.value })} placeholder="Stock" />
+                </td>
+                <td className="px-4 py-2 flex gap-2">
+                  <button className="px-2 py-1 rounded bg-green-600 text-white text-xs font-bold hover:bg-green-700" onClick={handleAgregar}>Agregar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -32,6 +32,7 @@ const VentaCatalogo = ({
 }) => {
   const [showForm, setShowForm] = React.useState(false);
   const [nuevoCliente, setNuevoCliente] = React.useState({ name: '', phone: '', address: '' });
+  const [drawerOpen, setDrawerOpen] = React.useState(false); // Para el carrito en móvil
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,20 +44,24 @@ const VentaCatalogo = ({
 
   return (
     <div className="fixed inset-0 flex w-full h-screen overflow-hidden bg-[#0F0F13] text-white font-sans">
-      
-      {/* 1. ESPACIO BLOQUEADO detras de la barra lateral (Ancho exacto de la barra) */}
-      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13]"></div>
+      {/* Barra lateral: visible solo en escritorio */}
+      <div className="w-[80px] min-w-[80px] h-full bg-[#0F0F13] hidden sm:block"></div>
 
-      {/* 2. LADO IZQUIERDO: Catálogo Principal (Flex-1 para ocupar el resto) */}
+      {/* Barra inferior móvil: solo visible en móvil */}
+      <div className="sm:hidden fixed bottom-0 left-0 w-full h-[64px] bg-orange-500 flex items-center justify-around z-30 shadow-lg">
+        {/* Aquí puedes poner iconos de navegación si tienes, o dejarlo vacío para solo el espacio */}
+      </div>
+
+      {/* Catálogo principal */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         
         {/* Header Compacto con Margen Superior */}
-        <div className="pt-6 px-6 pb-4 flex justify-between items-center bg-[#0F0F13]">
-          <div>
-            <h2 className="text-xl font-black tracking-tight text-white uppercase">Venta de Catálogo</h2>
-            <p className="text-gray-500 text-[11px] mt-0.5">Nodus Estudio POS</p>
+        <div className="pt-4 px-3 pb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center bg-[#0F0F13] gap-2">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase leading-tight">Venta de Catálogo</h2>
+            <p className="text-gray-500 text-[10px] sm:text-[11px] mt-0.5">Nodus Estudio POS</p>
           </div>
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 mt-2 sm:mt-0">
             <Search className="absolute left-3.5 top-2.5 text-gray-600" size={16} />
             <input
               type="text"
@@ -67,7 +72,7 @@ const VentaCatalogo = ({
         </div>
 
         {/* Categorías Compactas */}
-        <div className="flex items-center gap-2 overflow-x-auto px-6 py-2 custom-scroll whitespace-nowrap">
+        <div className="flex items-center gap-2 overflow-x-auto px-3 sm:px-6 py-2 custom-scroll whitespace-nowrap">
           <button
             onClick={() => setCategoriaSeleccionada("Todos")}
             className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
@@ -96,25 +101,25 @@ const VentaCatalogo = ({
         </div>
 
         {/* Grid de Productos - COMPACTO y OPTIMIZADO */}
-        <div className="flex-1 overflow-y-auto custom-scroll px-6 py-4 bg-[#0F0F13]">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="flex-1 overflow-y-auto custom-scroll px-2 sm:px-6 py-3 sm:py-4 bg-[#0F0F13]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
             {productos.map((p) => (
               <div
                 key={p.id}
-                className="bg-[#1c1c24] rounded-2xl p-3 flex flex-col h-full border border-gray-800/50 hover:border-orange-500/40 transition-all group shadow-sm hover:shadow-orange-500/5"
+                className="bg-[#1c1c24] rounded-2xl p-2 sm:p-3 flex flex-col h-full border border-gray-800/50 hover:border-orange-500/40 transition-all group shadow-sm hover:shadow-orange-500/5
+                  aspect-square sm:aspect-auto justify-between"
               >
                 {/* Imagen Cuadrada Compacta */}
-                <div className="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-[#25252e] flex items-center justify-center border border-gray-800/30">
+                <div className="aspect-square w-full rounded-xl overflow-hidden mb-2 sm:mb-3 bg-[#25252e] flex items-center justify-center border border-gray-800/30">
                   {p.img ? (
                     <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
                     <Utensils size={28} className="text-gray-700 group-hover:text-orange-500/50 transition-colors" />
                   )}
                 </div>
-                
                 {/* Info del Producto Compacta */}
                 <div className="flex flex-col flex-1 justify-between">
-                  <h3 className="text-gray-100 font-bold text-xs leading-snug line-clamp-2 min-h-[2rem]">{p.name}</h3>
+                  <h3 className="text-gray-100 font-bold text-xs leading-snug line-clamp-2 min-h-[2rem] text-center">{p.name}</h3>
                   <div className="flex items-center justify-between mt-1 pt-2 border-t border-gray-800/50">
                     <span className="text-orange-500 font-black text-base">
                       {typeof formatCurrency === "function" ? formatCurrency(p.price) : `$${p.price}`}
@@ -133,8 +138,90 @@ const VentaCatalogo = ({
         </div>
       </div>
 
-      {/* LADO DERECHO: Carrito con Bordes Suaves */}
-      <div className="w-[340px] min-w-[340px] bg-[#16161D] border-l border-gray-800/50 h-full flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.3)]">
+      {/* Carrito: visible solo en escritorio/tablet */}
+      <div className="w-[340px] min-w-[340px] bg-[#16161D] border-l border-gray-800/50 h-full flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.3)] hidden sm:flex">
+              {/* Botón flotante móvil para ver pedido */}
+              {carrito.length > 0 && (
+                <button
+                  className="sm:hidden fixed bottom-20 right-4 z-40 bg-orange-500 text-white font-black rounded-full px-6 py-3 shadow-lg flex items-center gap-2 text-lg active:scale-95 transition-all"
+                  onClick={() => setDrawerOpen(true)}
+                >
+                  Ver Pedido
+                  <span className="ml-2 text-base font-bold">{formatCurrency(total)}</span>
+                </button>
+              )}
+
+              {/* Drawer móvil para el carrito */}
+              {drawerOpen && (
+                <div className="fixed inset-0 z-50 bg-black/70 flex items-end sm:hidden">
+                  <div className="w-full bg-[#16161D] rounded-t-2xl shadow-2xl max-h-[90vh] flex flex-col animate-slideUp">
+                    <div className="flex items-center justify-between p-4 border-b border-gray-800">
+                      <h3 className="text-lg font-black text-white uppercase">Tu Pedido</h3>
+                      <button onClick={() => setDrawerOpen(false)} className="text-gray-400 hover:text-orange-500 text-2xl font-black">×</button>
+                    </div>
+                    {/* Contenido del carrito (reutiliza la lógica de la versión desktop) */}
+                    <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll">
+                      {carrito.length === 0 ? (
+                        <div className="h-full flex flex-col items-center justify-center text-gray-700 opacity-50">
+                          <Utensils size={40} className="mb-4" />
+                          <p className="italic text-xs">Esperando pedido...</p>
+                        </div>
+                      ) : (
+                        carrito.map((item) => (
+                          <div key={item.id} className="bg-[#1c1c24] p-3 rounded-xl border border-gray-800/50 transition-all hover:border-gray-700">
+                            <div className="flex justify-between items-start mb-2">
+                              <p className="text-xs font-bold text-gray-200 w-2/3 leading-tight line-clamp-2">{item.name}</p>
+                              <p className="font-black text-xs text-orange-500">{formatCurrency(item.price * item.qty)}</p>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3 bg-[#0F0F13] rounded-lg px-2.5 py-1.5 border border-gray-800">
+                                <button onClick={() => onRemoveCart(item)} className="text-gray-400 hover:text-white font-bold text-xs">-</button>
+                                <span className="text-xs font-black text-white w-4 text-center">{item.qty}</span>
+                                <button onClick={() => onAddCart(item)} className="text-gray-400 hover:text-white font-bold text-xs">+</button>
+                              </div>
+                              <span className="text-[10px] font-bold text-gray-600">{formatCurrency(item.price)} c/u</span>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                    {/* Totales y botón de pagar */}
+                    <div className="p-4 bg-[#1c1c24] border-t border-gray-800 space-y-3">
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                          <span>Subtotal</span>
+                          <span className="text-gray-300">{formatCurrency(subtotal)}</span>
+                        </div>
+                        <div className="flex justify-between text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                          <span>Impuestos</span>
+                          <span className="text-gray-300">{formatCurrency(impuestos)}</span>
+                        </div>
+                        {diningOption === 'delivery' && (
+                          <div className="flex justify-between text-gray-500 text-[11px] font-bold uppercase tracking-widest pb-2 border-b border-gray-800/50">
+                            <span>Valor Domicilio</span>
+                            <span className="text-gray-300">{formatCurrency(deliveryValue)}</span>
+                          </div>
+                        )}
+                        {diningOption !== 'delivery' && (
+                          <div className="pb-2 border-b border-gray-800/50"></div>
+                        )}
+                      </div>
+                      <div className="flex justify-between items-end pt-1">
+                        <span className="text-gray-400 font-bold text-xs uppercase tracking-[0.2em]">Total a Pagar</span>
+                        <span className="text-orange-500 text-2xl font-black leading-none">{formatCurrency(total)}</span>
+                      </div>
+                      <button
+                        className="w-full bg-orange-500 py-3 rounded-[16px] font-black text-base mt-3 hover:bg-orange-600 active:scale-95 transition-all shadow-[0_8px_20px_rgba(249,115,22,0.15)] uppercase tracking-widest"
+                        disabled={carrito.length === 0}
+                        style={carrito.length === 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                        onClick={() => carrito.length > 0 && typeof onCobrar === 'function' && onCobrar()}
+                      >
+                        COBRAR AHORA
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
         {/* Selector de Cliente */}
         <div className="p-4 border-b border-gray-800 bg-[#1c1c24]/70">
           <div className="mb-2">
@@ -359,6 +446,8 @@ const VentaCatalogo = ({
         .custom-scroll::-webkit-scrollbar-thumb { background: #25252e; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #f97316; }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .animate-slideUp { animation: slideUp 0.25s cubic-bezier(.4,0,.2,1); }
       `}</style>
     </div>
   );
